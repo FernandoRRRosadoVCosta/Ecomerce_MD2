@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:more_devs_do_zero/features/home/controllers/home_controller.dart';
+import 'package:more_devs_do_zero/features/home/widgets/banner_carousel.dart';
 import 'package:more_devs_do_zero/features/home/widgets/categories_section.dart';
 import 'package:more_devs_do_zero/features/home/widgets/products_section.dart';
 import 'package:more_devs_do_zero/features/login/controllers/login_controller.dart';
@@ -43,12 +44,17 @@ class _HomePageState extends State<HomePage> {
         builder: (context, homeController, child) {
           return Column(
             children: [
+            BannerCarousel(),
+
               CategoriesSection(
                 state: homeController.categoriesState,
                 categories: homeController.categories,
               ),
               ProductsSection(
-                state: homeController.productsState,
+                isLoading:
+                    homeController.productsState == ProductsViewState.loading,
+                hasError:
+                    homeController.productsState == ProductsViewState.error,
                 products: homeController.products,
               ),
               AppElevatedButton(
